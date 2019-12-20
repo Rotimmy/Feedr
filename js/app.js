@@ -289,20 +289,22 @@ function search(value) {
       source = "News API",
       url = "https://newsapi.org/v2/everything?",
       query = value.split(" "), // create an array of search terms
+      queryStr = "q=" + query[0],
       param = {
         "apiKey": apiKey
       };
   // iterate through query array
-  $.each(query, function(i){
-    url += "q=" + query[i] + "&";
-  });
+  for(let i = 1;i<query.length;i++){
+    queryStr += "+" + query[i];
+  };
+  url += queryStr;
   for(let key in param){
-    url += key + "=" + param[key];
+    url += "&" + key + "=" + param[key];
   };
   console.log(url);
   $.get(url).done(function(res){
-    //hide loader
-    $("#popUp").addClass("hidden");
+    feedArr = []; // empty feed array
+    $("#popUp").addClass("hidden"); //hide loader
     if(res.articles.length === 0){
       console.log("Sorry, we could not find any articles matching your query");
     } else {
