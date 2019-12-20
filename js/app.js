@@ -1,6 +1,6 @@
 let feedArr = [];
 
-$(window).load(function() {
+$(document).ready(function() {
 
   mainFeed(); // call aggregate "main" feed
   // select single source
